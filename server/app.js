@@ -20,5 +20,13 @@ app.get("/health", (req, res) => {
 
 // routes
 app.use("/api/auth", authRoutes);
+import testRoutes from "./routes/testRoutes.js";
+
+app.use("/api/test", testRoutes);
+import userRoutes from "./routes/userRoutes.js";
+
+app.use("/api/users", userRoutes);
+
+
 
 export default app;
