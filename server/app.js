@@ -16,5 +16,9 @@ app.get("/health", (req, res) => {
     message: "InstaCLI API is running "
   });
 });
+ import authRoutes from "./routes/authRoutes.js";
+
+// routes
+app.use("/api/auth", authRoutes);
 
 export default app;

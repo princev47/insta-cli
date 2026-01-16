@@ -20,7 +20,6 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      select: false
     },
 
     bio: {
@@ -56,7 +55,6 @@ const userSchema = new mongoose.Schema(
 );
 
 // Indexes
-userSchema.index({ email: 1 });
-userSchema.index({ username: 1 });
+
 
 export default mongoose.model("User", userSchema);
