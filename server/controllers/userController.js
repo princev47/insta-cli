@@ -1,12 +1,13 @@
 import User from "../models/User.js";
 
-/**
- * FOLLOW USER
- */
+
 export const followUser = async (req, res) => {
   try {
-    const currentUserId = req.user.id;
+    const currentUserId = req.user.userId;
     const targetUserId = req.params.id;
+    console.log("Current User ID:", currentUserId);
+    console.log("Target User ID:", targetUserId);
+
 
     if (currentUserId === targetUserId) {
       return res.status(400).json({
@@ -54,7 +55,7 @@ export const followUser = async (req, res) => {
 
 export const unfollowUser = async (req, res) => {
   try {
-    const currentUserId = req.user.id;
+    const currentUserId = req.user.userId;
     const targetUserId = req.params.id;
 
     const targetUser = await User.findById(targetUserId);
