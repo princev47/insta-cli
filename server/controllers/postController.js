@@ -1,12 +1,12 @@
 import Post from "../models/Post.js";
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
-
-
+ 
 export const createPost = async (req, res) => {
   try {
-    const userId = req.user.id;
-    const { caption } = req.body;
+    const userId = req.user.userId;
+    const caption = req.body?.caption || "";
+
 
     // Check file exists
     if (!req.files || !req.files.image) {
@@ -47,6 +47,56 @@ export const createPost = async (req, res) => {
 
   } catch (error) {
     console.error("CREATE POST ERROR:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error"
+    });
+  }
+};
+
+
+
+import User from "../models/User.js";
+
+export const getFeed = async (req, res) => {
+  try {
+    if (!req.user || !req.user.userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized"
+      });
+    }
+
+    const userI = req.user.userId;
+
+    // get current user
+    const user = await User.findById(userI).select("following");
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found"
+      });
+    }
+
+    // include own posts also
+    const feedUserIds = [...user.following, userI];
+
+    const posts = await Post.find({
+      author: { $in: feedUserIds }
+    })
+      .populate("author", "username profileImage")
+      .sort({ createdAt: -1 })
+      .limit(50);
+
+    res.status(200).json({
+      success: true,
+      count: posts.length,
+      posts
+    });
+
+  } catch (error) {
+    console.error("FEED ERROR:", error);
     res.status(500).json({
       success: false,
       message: "Server error"
