@@ -27,6 +27,10 @@ import userRoutes from "./routes/userRoutes.js";
 
 app.use("/api/users", userRoutes);
 
+import postRoutes from "./routes/postRoutes.js";
+
+app.use("/api/posts", postRoutes);
+
 
 
 export default app;
