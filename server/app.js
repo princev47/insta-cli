@@ -40,6 +40,10 @@ app.use("/api/users", userRoutes);
 import postRoutes from "./routes/postRoutes.js";
 
 app.use("/api/posts", postRoutes);
+import commentRoutes from "./routes/commentRoutes.js";
+
+app.use("/api", commentRoutes);
+
 
 
 
