@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import api from "../utils/api.js";
+import api, { initApi } from "../utils/api.js";   // ⬅️ import initApi
 import { saveToken } from "../utils/auth.js";
 
 const loginCommand = new Command("login");
@@ -16,15 +16,16 @@ loginCommand
       });
 
       await saveToken(res.data.token);
+      await initApi();  // 🔥 THIS IS THE IMPORTANT LINE
+
       console.log("✅ Logged in successfully");
     } catch (err) {
-  if (err.response) {
-    console.error("❌ Login failed:", err.response.data.message);
-  } else {
-    console.error("❌ Login failed:", err.message);
-  }
-}
-
+      if (err.response) {
+        console.error("❌ Login failed:", err.response.data.message);
+      } else {
+        console.error("❌ Login failed:", err.message);
+      }
+    }
   });
 
 export default loginCommand;

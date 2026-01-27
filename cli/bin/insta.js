@@ -1,6 +1,11 @@
 #!/usr/bin/env node
 
+import React from "react";
+import { render } from "ink";
 import { Command } from "commander";
+import { initApi } from "../utils/api.js";
+
+// CLI commands
 import loginCommand from "../commands/login.js";
 import feedCommand from "../commands/feed.js";
 import postCommand from "../commands/post.js";
@@ -22,4 +27,18 @@ program.addCommand(likeCommand);
 program.addCommand(commentCommand);
 program.addCommand(logoutCommand);
 
-program.parse(process.argv);
+// 👇 KEY FIX
+if (process.argv.length === 2) {
+  // TUI MODE (tsx ONLY)
+  (async () => {
+    await initApi();
+
+    // 🔥 dynamic import (tsx will handle JSX)
+    const { default: App } = await import("../ui/App.jsx");
+
+    render(React.createElement(App));
+  })();
+} else {
+  // NORMAL CLI MODE (node)
+  program.parse(process.argv);
+}
