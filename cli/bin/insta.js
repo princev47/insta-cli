@@ -41,5 +41,5 @@ if (process.argv.length === 2) {
 } else {
   // NORMAL CLI MODE (node)
   program.parse(process.argv);
-  //wdwf
+  
 }
