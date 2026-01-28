@@ -11,6 +11,9 @@ export default function Upload({ setScreen }) {
   const [step, setStep] = useState(0);
 
   const submit = async () => {
+  try {
+    await initApi(); // 🔥 REQUIRED
+
     const form = new FormData();
     form.append("image", fs.createReadStream(path));
     form.append("caption", caption);
@@ -20,7 +23,11 @@ export default function Upload({ setScreen }) {
     });
 
     setScreen("feed");
-  };
+  } catch {
+    setError("❌ Upload failed");
+  }
+};
+
 
   return (
     <Box flexDirection="column">
