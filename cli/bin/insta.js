@@ -14,7 +14,7 @@ import commentCommand from "../commands/comment.js";
 import logoutCommand from "../commands/logout.js";
 import followCommand from "../commands/follow.js";
 import unfollowCommand from "../commands/unfollow.js";
-
+import registerCommand from "../commands/register.js";
 
 const program = new Command();
 
@@ -31,6 +31,11 @@ program.addCommand(commentCommand);
 program.addCommand(logoutCommand);
 program.addCommand(followCommand);
 program.addCommand(unfollowCommand);
+program.addCommand(registerCommand);
+import commentsCommand from "../commands/comments.js";
+
+program.addCommand(commentsCommand);
+
 
 
 // 👇 KEY FIX
