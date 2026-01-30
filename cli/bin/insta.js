@@ -12,6 +12,9 @@ import postCommand from "../commands/post.js";
 import likeCommand from "../commands/like.js";
 import commentCommand from "../commands/comment.js";
 import logoutCommand from "../commands/logout.js";
+import followCommand from "../commands/follow.js";
+import unfollowCommand from "../commands/unfollow.js";
+
 
 const program = new Command();
 
@@ -26,6 +29,9 @@ program.addCommand(postCommand);
 program.addCommand(likeCommand);
 program.addCommand(commentCommand);
 program.addCommand(logoutCommand);
+program.addCommand(followCommand);
+program.addCommand(unfollowCommand);
+
 
 // 👇 KEY FIX
 if (process.argv.length === 2) {
