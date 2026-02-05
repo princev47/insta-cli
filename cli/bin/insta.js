@@ -35,6 +35,9 @@ program.addCommand(registerCommand);
 import commentsCommand from "../commands/comments.js";
 
 program.addCommand(commentsCommand);
+import profileCommand from "../commands/profile.js";
+
+program.addCommand(profileCommand);
 
 
 
