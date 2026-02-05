@@ -40,6 +40,9 @@ import profileCommand from "../commands/profile.js";
 program.addCommand(profileCommand);
 
 
+import searchCommand from "../commands/search.js";
+
+program.addCommand(searchCommand);
 
 // 👇 KEY FIX
 if (process.argv.length === 2) {
