@@ -98,3 +98,32 @@ export const unfollowUser = async (req, res) => {
     });
   }
 };
+
+import Post from "../models/Post.js";
+
+export const getUserProfile = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const user = await User.findById(userId).select(
+      "username followers following"
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const postsCount = await Post.countDocuments({ author: userId });
+
+    res.status(200).json({
+      username: user.username,
+      userId: user._id,
+      followers: user.followers.length,
+      following: user.following.length,
+      posts: postsCount
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+

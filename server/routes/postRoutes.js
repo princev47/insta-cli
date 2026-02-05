@@ -4,14 +4,14 @@ import {
   createPost,
   getFeed,
   likePost,
-  unlikePost
+  unlikePost,getPostsByUser
 } from "../controllers/postController.js";
 
 const router = express.Router();
 
 router.post("/", authMiddleware, createPost);
 router.get("/feed", authMiddleware, getFeed);
-
+router.get("/user/:id", authMiddleware, getPostsByUser);
 router.post("/:id/like", authMiddleware, likePost);
 router.post("/:id/unlike", authMiddleware, unlikePost);
 

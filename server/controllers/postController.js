@@ -56,53 +56,60 @@ export const createPost = async (req, res) => {
 
 
 
+
 import User from "../models/User.js";
+import mongoose from "mongoose";
 
 export const getFeed = async (req, res) => {
   try {
-    if (!req.user || !req.user.userId) {
-      return res.status(401).json({
-        success: false,
-        message: "Unauthorized"
-      });
-    }
+    const userId = req.user.userId;
 
-    const userI = req.user.userId;
+    const limit = parseInt(req.query.limit) || 5;
+    const cursor = req.query.cursor;
 
-    // get current user
-    const user = await User.findById(userI).select("following");
+    const user = await User.findById(userId);
 
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found"
-      });
-    }
+    // Users whose posts we want
+    const feedUserIds = [...user.following, userId];
 
-    // include own posts also
-    const feedUserIds = [...user.following, userI];
-
-    const posts = await Post.find({
+    const query = {
       author: { $in: feedUserIds }
-    })
-      .populate("author", "username profileImage")
-      .sort({ createdAt: -1 })
-      .limit(50);
+    };
+
+    // Cursor logic
+    if (cursor) {
+      query._id = {
+        $lt: new mongoose.Types.ObjectId(cursor)
+      };
+    }
+
+    const posts = await Post.find(query)
+      .populate("author", "username")
+      .sort({ _id: -1 }) // newest first
+      .limit(limit + 1); // fetch extra for nextCursor
+
+    let nextCursor = null;
+
+    if (posts.length > limit) {
+      nextCursor = posts[limit - 1]._id;
+      posts.pop(); // remove extra
+    }
 
     res.status(200).json({
       success: true,
-      count: posts.length,
-      posts
+      posts,
+      nextCursor
     });
 
-  } catch (error) {
-    console.error("FEED ERROR:", error);
-    res.status(500).json({
-      success: false,
-      message: "Server error"
-    });
-  }
+  } catch (err) {
+  console.error("🔥 FEED ERROR:", err);
+
+  res.status(500).json({
+    message: "Server error"
+  });
+}
 };
+
 
 /**
  * LIKE A POST
@@ -189,6 +196,23 @@ export const unlikePost = async (req, res) => {
       success: false,
       message: "Server error"
     });
+  }
+};
+
+
+  
+
+export const getPostsByUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const posts = await Post.find({ author: userId })
+      .populate("author", "username")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({ posts });
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
   }
 };
 
