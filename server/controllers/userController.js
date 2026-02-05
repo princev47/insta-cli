@@ -127,3 +127,34 @@ export const getUserProfile = async (req, res) => {
   }
 };
 
+export const searchUsers = async (req, res) => {
+  try {
+    const keyword = req.query.q;
+
+    if (!keyword) {
+      return res.status(400).json({
+        message: "Search query is required"
+      });
+    }
+
+    const users = await User.find({
+      username: {
+        $regex: keyword,
+        $options: "i" // case-insensitive
+      }
+    }).select("username followers");
+
+    res.status(200).json({
+      success: true,
+      users
+    });
+
+  } catch (err) {
+    console.error("SEARCH ERROR:", err);
+
+    res.status(500).json({
+      message: "Server error"
+    });
+  }
+};
+
