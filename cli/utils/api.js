@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken } from "./auth.js";
 
 const api = axios.create({
-  baseURL: "https://insta-cli.onrender.com",
+  baseURL: "https://insta-cli.onrender.com/api",
 });
 
 
