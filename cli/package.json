@@ -7,7 +7,7 @@
     "start": "tsx bin/insta.js"
   },
   "bin": {
-    "insta": "bin/insta.js"
+    "insta": "./bin/insta.js"
   },
   "keywords": [
     "cli",
