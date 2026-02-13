@@ -1,5 +1,5 @@
 {
-  "name": "cli",
+  "name": "insta-cli-prince47",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
@@ -7,10 +7,16 @@
     "start": "tsx bin/insta.js"
   },
   "bin": {
-    "insta": "./bin/insta.js"
+    "insta": "bin/insta.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "cli",
+    "instagram",
+    "node",
+    "social",
+    "terminal"
+  ],
+  "author": "Prince Singh",
   "license": "ISC",
   "description": "",
   "dependencies": {
