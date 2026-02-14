@@ -1,62 +1,32 @@
 🚀 InstaCLI
 
-Instagram from your Terminal
+A fully functional Instagram-style Social Media CLI Application built with Node.js, Express, MongoDB, and published as an npm package.
 
-InstaCLI is a CLI-based Instagram-like application built using the MERN stack, where users can authenticate, upload images, view their feed, like posts, and comment — all from the terminal.
+Interact with a social platform directly from your terminal — no browser, no distractions.
 
-This project demonstrates real-world backend engineering combined with a Node.js CLI client, making it a unique and standout portfolio project.
+📦 Installation
 
-✨ Features
-🔐 Authentication
+Make sure Node.js (v18+) is installed.
 
-JWT-based login & logout
+Install globally via npm:
 
-Secure token storage for CLI
+npm install -g insta-cli-prince47
 
-Protected routes using middleware
 
-👥 Social Graph
+After installation:
 
-Follow / unfollow users
+insta --help
 
-Bi-directional follower–following consistency
 
-🖼️ Posts
+You’re ready to go 🚀
 
-Upload images via CLI
+🌐 Backend API
 
-Backend handles uploads to Cloudinary
+Hosted on Render
+Built with Express + MongoDB
+Handles authentication, posts, likes, comments, follow system, and pagination.
 
-Stores only optimized image URLs in MongoDB
-
-Optional captions
-
-📰 Feed (Timeline)
-
-Shows posts from followed users + self
-
-Sorted by newest first
-
-Optimized MongoDB queries
-
-❤️ Engagement
-
-Like / unlike posts
-
-Comment on posts
-
-Fetch comments per post
-
-🖥️ CLI Experience
-
-Fully functional terminal commands
-
-Global CLI command (insta)
-
-No browser or UI required
-
-🛠️ Tech Stack
-Backend
+⚙️ Tech Stack
 
 Node.js
 
@@ -66,18 +36,115 @@ MongoDB + Mongoose
 
 JWT Authentication
 
-Cloudinary (image storage)
+Cloudinary (Image Uploads)
 
-express-fileupload
+Commander.js (CLI framework)
 
-CLI
+Axios (API communication)
 
-Node.js
+Cursor-based Pagination
 
-Commander.js
+npm (Global CLI Distribution)
 
-Axios
+🔐 Authentication Flow
 
-form-data
+JWT-based authentication
 
-fs-extra
+Token stored locally in CLI
+
+Automatically attached to protected requests
+
+Secure middleware verification
+
+💻 Available Commands
+👤 Authentication
+insta register -u <username> -e <email> -p <password>
+insta login -e <email> -p <password>
+insta logout
+
+📰 Feed
+insta feed
+
+
+Displays latest posts
+
+Shows:
+
+Username
+
+Author ID
+
+Post ID
+
+Image URL
+
+Caption
+
+Likes count
+
+Comments count
+
+Uses cursor-based pagination for efficient loading
+
+📸 Upload Post
+insta post upload -i <imagePath> -c "caption"
+
+
+Example:
+
+insta post upload -i C:\Users\User\Desktop\photo.jpg -c "Hello from CLI"
+
+
+Uploads image to Cloudinary via backend.
+
+❤️ Like / Unlike Post
+insta like <postId>
+
+
+Toggles like status.
+
+💬 Comment on Post
+insta comment <postId> "Nice post 🔥"
+
+👥 Follow / Unfollow Users
+insta follow <userId>
+insta unfollow <userId>
+
+🔍 Search Users
+insta search <username>
+
+
+Returns top 7 matching users
+
+Displays user IDs for quick follow
+
+👤 View Profile
+insta profile <userId>
+
+
+Shows:
+
+Username
+
+Followers count
+
+Following count
+
+User’s posts
+
+🧠 Advanced Features
+✅ Cursor-Based Pagination
+
+Efficient feed loading using MongoDB _id cursor instead of skip/limit.
+
+✅ Token Auto Injection
+
+CLI automatically attaches JWT token to every protected API call.
+
+✅ Cloudinary Integration
+
+Secure backend-based image uploads.
+
+✅ Clean Terminal Output
+
+Structured, readable formatting for better UX.
