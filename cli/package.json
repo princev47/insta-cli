@@ -1,13 +1,13 @@
 {
   "name": "insta-cli-prince47",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "tsx bin/insta.js"
   },
   "bin": {
-    "insta": "./bin/insta.js"
+    "insta": "bin/insta.js"
   },
   "keywords": [
     "cli",
